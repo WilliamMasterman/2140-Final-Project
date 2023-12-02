@@ -134,3 +134,9 @@ class TaskList:
         """
         for tasks in self.categories.values():
             for task in tasks:
+                if task.title == title:
+                    task.completed = True
+                    print(f"Task '{title}' marked as complete")
+                    return
+
+        print(f"Task '{title}' not found")
