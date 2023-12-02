@@ -1,2 +1,7 @@
 class Task:
     def __init__(self, title, due_date, description, category):
+        self.title = title
+        self.due_date = due_date
+        self.description = description
+        self.category = category
+        self.completed = False
