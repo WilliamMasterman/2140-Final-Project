@@ -121,3 +121,16 @@ class TaskList:
 
         #if the title is not found print an error and restart the menu
         print(f"Task '{title}' not found")
+
+
+    def mark_task_complete(self, title):
+        """
+        Marks a task as complete
+
+        Returns: None
+        prints a message about whether the task was marked complete
+        
+        Arguments: title (str): the title of the task that is to be completed
+        """
+        for tasks in self.categories.values():
+            for task in tasks:
