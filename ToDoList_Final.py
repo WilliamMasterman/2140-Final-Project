@@ -1,5 +1,5 @@
 class Task:
-    def __init__(self, title, due_date, description, category):
+    def __init__(self, title, due_date, description, category, completed=False):
         """
         This represents an individual task
 
@@ -15,8 +15,12 @@ class Task:
         self.due_date = due_date
         self.description = description
         self.category = category
-        self.completed = False
+        self.completed = completed
         
+class TaskList:
+    def __init__(self):
+        self.categories = {}
+
     def edit_task(self, new_title, new_due_date, new_description, new_category):
         """
         Edits a task with new information
