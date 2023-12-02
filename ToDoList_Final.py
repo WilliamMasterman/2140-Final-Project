@@ -110,4 +110,14 @@ class TaskList:
         """
         for tasks in self.categories.values():
             for task in tasks:
-                
+                # goes through and checks to see if the edited values are correct
+                if task.title == title:
+                    task.title = new_title
+                    task.due_date = new_due_date
+                    task.description = new_description
+                    task.category = new_category
+                    print(f"Task '{title}' edited")
+                    return
+
+        #if the title is not found print an error and restart the menu
+        print(f"Task '{title}' not found")
