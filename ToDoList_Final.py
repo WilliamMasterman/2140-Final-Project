@@ -74,6 +74,19 @@ class TaskList:
         print(f"Task '{title}' not found")
 
 
+    def view_tasks(self):
+        """
+        Creates formatted str for all aspects of task
+
+        Returns: A string containing information about each task for each defining category
+
+        Arguments: None
+        """
+        tasks_str = ""
+        for category, tasks in self.categories.items():
+            tasks_str += f"\n===== Category: {category} =====\n"
+
+
     def edit_task(self, new_title, new_due_date, new_description, new_category):
         """
         Edits a task with new information
