@@ -142,3 +142,6 @@ class TaskList:
 
         #if input title is not found throw error
         print(f"Task '{title}' not found")
+
+class SpecialProjects(TaskList):
+    
