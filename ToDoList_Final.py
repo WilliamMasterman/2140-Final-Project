@@ -18,7 +18,17 @@ class Task:
         self.completed = False
         
     def edit_task(self, new_title, new_due_date, new_description, new_category):
-        ""
+        """
+        Edits a task with new information
+
+        Returns: None
+
+        Arguments:
+            new_title (str): New title of the task
+            new_due_date (datetime): New due date of the task
+            new_description (str): New description of the task
+            new_category (str): New category of the task
+        """
         self.title = new_title
         self.due_date = new_due_date
         self.description = new_description
