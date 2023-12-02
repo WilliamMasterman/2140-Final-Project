@@ -5,3 +5,6 @@ class Task:
         self.description = description
         self.category = category
         self.completed = False
+        
+    def edit_task(self, new_title, new_due_date, new_description, new_category):
+        self.title = new_title
