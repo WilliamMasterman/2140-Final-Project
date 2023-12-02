@@ -43,6 +43,12 @@ class TaskList:
         if not isinstance(title, str):
             raise TypeError("Invalid input type")
         
+        for category, tasks in self.categories.items():
+            for task in tasks:
+                if task.title == title:
+                    tasks.remove(task)
+                    print(f"Task '{title}' deleted")
+        
     
     def add_task(self, task):
         """
