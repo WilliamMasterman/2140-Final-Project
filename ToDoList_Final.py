@@ -85,6 +85,14 @@ class TaskList:
         tasks_str = ""
         for category, tasks in self.categories.items():
             tasks_str += f"\n===== Category: {category} =====\n"
+            #Displaying the information given via user input
+            for task in tasks:
+                tasks_str += f"Title: {task.title}\n"
+                tasks_str += f"Due Date: {task.due_date}\n"
+                tasks_str += f"Description: {task.description}\n"
+                tasks_str += f"Category: {task.category}\n"
+                tasks_str += f"Completed: {'Yes' if task.completed else 'No'}\n\n"
+        return tasks_str
 
 
     def edit_task(self, new_title, new_due_date, new_description, new_category):
