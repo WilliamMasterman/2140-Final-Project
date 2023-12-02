@@ -31,6 +31,19 @@ class TaskList:
         """
         self.categories = {}
 
+    
+    def add_task(self, task):
+        """
+        This adds a task to the corresponding category
+
+        Returns: None
+
+        Arguments: Task (task): task object to be added
+        """
+        if task.category not in self.categories:
+            self.categories[task.category] = []
+        self.categories[task.category].append(task)
+
 
     def delete_task(self, title: str):
         """
@@ -48,19 +61,17 @@ class TaskList:
                 if task.title == title:
                     tasks.remove(task)
                     print(f"Task '{title}' deleted")
-        
-    
-    def add_task(self, task):
-        """
-        This adds a task to the corresponding category
 
-        Returns: None
+                    #if the category doesnt have anything in it, remove the category
+                    #Keeps the category around until its not useful anymore
+                    if not tasks:
+                        del self.categories[category]
+                        print(f"Category '{category}' removed")
 
-        Arguments: Task (task): task object to be added
-        """
-        if task.category not in self.categories:
-            self.categories[task.category] = []
-        self.categories[task.category].append(task)
+                    return
+
+        #if the title isnt found, tell user
+        print(f"Task '{title}' not found")
 
 
     def edit_task(self, new_title, new_due_date, new_description, new_category):
