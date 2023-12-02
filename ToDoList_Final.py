@@ -19,7 +19,28 @@ class Task:
         
 class TaskList:
     def __init__(self):
+        """
+        Initializes category object for class
+
+        Returns: None
+
+        Arguments: None
+        """
         self.categories = {}
+
+    
+    def add_task(self, task):
+        """
+        This adds a task to the corresponding category
+
+        Returns: None
+
+        Arguments: Task (task): task object to be added
+        """
+        if task.category not in self.categories:
+            self.categories[task.category] = []
+        self.categories[task.category].append(task)
+
 
     def edit_task(self, new_title, new_due_date, new_description, new_category):
         """
