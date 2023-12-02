@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+from datetime import datetime
+
 class Task:
     def __init__(self, title, due_date, description, category, completed=False):
         """
@@ -28,6 +31,18 @@ class TaskList:
         """
         self.categories = {}
 
+
+    def delete_task(self, title: str):
+        """
+        Deletes a task based on its title
+
+        Returns: None
+        
+        Arguments: title (str): The title of the task
+        """
+        if not isinstance(title, str):
+            raise TypeError("Invalid input type")
+        
     
     def add_task(self, task):
         """
