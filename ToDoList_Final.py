@@ -133,10 +133,12 @@ class TaskList:
         Arguments: title (str): the title of the task that is to be completed
         """
         for tasks in self.categories.values():
+            # goes through the value pair of the dict and changes task.completed to be true
             for task in tasks:
                 if task.title == title:
                     task.completed = True
                     print(f"Task '{title}' marked as complete")
                     return
 
+        #if input title is not found throw error
         print(f"Task '{title}' not found")
