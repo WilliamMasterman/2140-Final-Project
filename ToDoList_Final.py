@@ -285,7 +285,7 @@ class TextBasedToDoListApp:
         Run the Text-Based To-Do List Application.
 
         Returns: None
-        
+
         Args: None
         """
         while True:
@@ -293,3 +293,15 @@ class TextBasedToDoListApp:
             print("1. Tasks")
             print("2. Special Projects")
             print("0. Exit")
+
+            category_choice = input("Enter your choice: ")
+
+            if category_choice == "1":
+                self.run_task_menu()
+            elif category_choice == "2":
+                self.run_special_project_menu()
+            elif category_choice == "0":
+                print("Exiting the program. Goodbye!")
+                break
+            else:
+                print("Invalid choice. Please enter a valid option.")
