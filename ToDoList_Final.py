@@ -254,3 +254,12 @@ class SpecialProjects(TaskList):
             title (str): title of the task to be marked as complete
         """
         if project_name in self.categories:
+            for task in self.categories[project_name]:
+                if task.title == title:
+                    task.completed = True
+                    print(f"Task '{title}' in project '{project_name}' marked as complete")
+                    return
+
+            print(f"Task '{title}' in project '{project_name}' not found")
+        else:
+            print(f"Project '{project_name}' not found")
