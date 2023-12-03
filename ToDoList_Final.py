@@ -282,7 +282,7 @@ class TextBasedToDoListApp:
 
     def run(self):
         """
-        Run the Text-Based To-Do List Application.
+        run the text based to do List app
 
         Returns: None
 
@@ -302,6 +302,40 @@ class TextBasedToDoListApp:
                 self.run_special_project_menu()
             elif category_choice == "0":
                 print("Exiting the program. Goodbye!")
+                break
+            else:
+                print("Invalid choice. Please enter a valid option.")
+
+    def run_task_menu(self):
+        """
+        run the text based task menu
+
+        Returns: None
+
+        Args: None
+        """
+        while True:
+            print("\n===== Tasks =====")
+            print("1. Add Task")
+            print("2. Edit Task")
+            print("3. Mark Task Complete")
+            print("4. View Completion Rate")
+            print("5. Delete Task")
+            print("0. Back to Main Menu")
+
+            task_choice = input("Enter your choice: ")
+
+            if task_choice == "1":
+                self.add_task()
+            elif task_choice == "2":
+                self.edit_task()
+            elif task_choice == "3":
+                self.mark_task_complete()
+            elif task_choice == "4":
+                self.view_completion_rate()
+            elif task_choice == "5":
+                self.delete_task()
+            elif task_choice == "0":
                 break
             else:
                 print("Invalid choice. Please enter a valid option.")
