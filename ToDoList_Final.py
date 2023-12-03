@@ -396,3 +396,17 @@ class TextBasedToDoListApp:
             try:
                 title = input("Enter task title: ")
                 due_date_str = input("Enter due date (day/month/year): ")
+
+                #this removes extra spaces from input
+                due_date_str = due_date_str.replace("'", "").replace("(", "").replace(")", "")
+
+                due_date = datetime.strptime(due_date_str, "%d/%m/%y")
+                description = input("Enter task description: ")
+                category = input("Enter task category: ")
+
+                task = Task(title, due_date, description, category)
+                self.task_list.add_task(task)
+                print("Task successfully added!")
+                break
+            except (TypeError, ValueError) as e:
+                print(f"Error: {e}. Please enter valid input.")
