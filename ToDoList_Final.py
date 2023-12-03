@@ -151,7 +151,7 @@ class SpecialProjects(TaskList):
 
         Returns: None
 
-        Parameters:
+        Arguments:
             task (Task): the task to be added to the project
             project_name (str): the name of the project to which the task will be added
         """
@@ -161,3 +161,14 @@ class SpecialProjects(TaskList):
         if project_name not in self.categories:
             self.categories[project_name] = []
         self.categories[project_name].append(task)
+
+    def view_completion_rate(self):
+        """
+        Calculates and returns the completion rate of tasks that are not overdue
+
+        Returns: str - a string indicating the completion rate
+
+        Arguments: None
+        """
+        total_tasks = 0
+        completed_tasks = 0
