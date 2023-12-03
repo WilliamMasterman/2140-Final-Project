@@ -18,6 +18,12 @@ class TestTaskClass(unittest.TestCase):
             self.task_description,
             self.task_category
         )
+        
+        self.assertEqual(task.title, self.task_title)
+        self.assertEqual(task.due_date, self.task_due_date)
+        self.assertEqual(task.description, self.task_description)
+        self.assertEqual(task.category, self.task_category)
+        self.assertFalse(task.completed)
 
 
 if __name__ == '__main__':
