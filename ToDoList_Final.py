@@ -214,3 +214,31 @@ class SpecialProjects(TaskList):
             tasks_str = f"No tasks found in project '{project_name}'"
 
         return tasks_str
+    
+    def edit_task_in_project(self, project_name, title, new_title, new_due_date, new_description, new_category):
+        """
+        edits a task within a specific project
+
+        Returns: None
+
+        Parameters:
+            project_name (str): name of the project containing the task
+            title (str): title of the task to be edited
+            new_title (str): new title fortask
+            new_due_date (datetime): new due date for task
+            new_description (str): new description for task
+            new_category (str): new category for task
+        """
+        if project_name in self.categories:
+            for task in self.categories[project_name]:
+                if task.title == title:
+                    task.title = new_title
+                    task.due_date = new_due_date
+                    task.description = new_description
+                    task.category = new_category
+                    print(f"Task '{title}' in project '{project_name}' edited")
+                    return
+
+            print(f"Task '{title}' in project '{project_name}' not found")
+        else:
+            print(f"Project '{project_name}' not found")
