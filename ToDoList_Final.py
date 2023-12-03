@@ -428,3 +428,24 @@ class TextBasedToDoListApp:
                 break
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
+    def add_task_to_special_project(self):
+        """
+        Add a task to a special project
+
+        Raises: TypeError: If there is an issue with the input types
+
+        Returns: None
+
+        Args: None
+        """
+        while True:
+            try:
+                title = input("Enter the title of the task: ")
+                project_name = input("Enter the name of the special project: ")
+
+                task = None
+                for tasks in self.task_list.categories.values():
+                    for t in tasks:
+                        if t.title == title:
+                            task = t
+                            break
