@@ -190,3 +190,27 @@ class SpecialProjects(TaskList):
 
         #returns the completion rate to 2 decimal points
         return f"Completion Rate: {completion_rate:.2f}%"
+    
+    def view_tasks_in_project(self, project_name):
+        """
+        find and format information about tasks in a specific project
+
+        Returns:
+            str: a formatted string containing information about tasks in the specified project
+
+        Arguments: project_name (str): The name of the desired project to view
+        """
+        tasks_str = ""
+        if project_name in self.categories:
+            #iterates through project in categories dict and then concatenates
+            #to tasks str. Very similar to view task method.
+            for task in self.categories[project_name]:
+                tasks_str += f"Title: {task.title}\n"
+                tasks_str += f"Due Date: {task.due_date}\n"
+                tasks_str += f"Description: {task.description}\n"
+                tasks_str += f"Category: {task.category}\n"
+                tasks_str += f"Completed: {'Yes' if task.completed else 'No'}\n\n"
+        else:
+            tasks_str = f"No tasks found in project '{project_name}'"
+
+        return tasks_str
