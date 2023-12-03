@@ -459,3 +459,22 @@ class TextBasedToDoListApp:
                     break
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
+
+    def view_tasks_in_special_project(self):
+        """
+        Display tasks within a selected special project
+        
+        Returns: None
+
+        Args: None
+        """
+        while True:
+            projects = list(self.special_project.categories.keys())
+            
+            if not projects:
+                print("No special projects found.")
+                return
+
+            print("\n===== Special Projects =====")
+            for idx, project in enumerate(projects, start=1):
+                print(f"{idx}. {project}")
