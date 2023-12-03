@@ -380,3 +380,19 @@ class TextBasedToDoListApp:
             else:
                 print("Invalid choice. Please enter a valid option.")
 
+    def add_task(self):
+        """
+        Adds a new task to the task list
+
+        Raises:
+            ValueError: If there is an issue with the input
+            TypeError: If there is a type mismatch in the input
+
+        Returns: None
+
+        Args: None
+        """
+        while True:
+            try:
+                title = input("Enter task title: ")
+                due_date_str = input("Enter due date (day/month/year): ")
