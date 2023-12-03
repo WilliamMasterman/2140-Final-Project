@@ -221,7 +221,7 @@ class SpecialProjects(TaskList):
 
         Returns: None
 
-        Parameters:
+        Args:
             project_name (str): name of the project containing the task
             title (str): title of the task to be edited
             new_title (str): new title fortask
@@ -242,3 +242,15 @@ class SpecialProjects(TaskList):
             print(f"Task '{title}' in project '{project_name}' not found")
         else:
             print(f"Project '{project_name}' not found")
+
+    def mark_task_complete_in_project(self, project_name, title):
+        """
+        Mark a task within a specific project as complete
+
+        Returns: None
+
+        Args:
+            project_name (str): name of the project containing the task
+            title (str): title of the task to be marked as complete
+        """
+        if project_name in self.categories:
