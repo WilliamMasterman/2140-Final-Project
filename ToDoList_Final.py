@@ -144,4 +144,20 @@ class TaskList:
         print(f"Task '{title}' not found")
 
 class SpecialProjects(TaskList):
-    
+
+    def add_task_to_project(self, task, project_name):
+        """
+        Adds a task to a specific project
+
+        Returns: None
+
+        Parameters:
+            task (Task): the task to be added to the project
+            project_name (str): the name of the project to which the task will be added
+        """
+        #this checks to see if the project name is in the categories dict
+        #if not it creates an emoty list
+        # if it is then it appends a task
+        if project_name not in self.categories:
+            self.categories[project_name] = []
+        self.categories[project_name].append(task)
