@@ -9,3 +9,16 @@ class TestTaskClass(unittest.TestCase):
         self.task_due_date = datetime(2023, 1, 1)
         self.task_description = "This is a sample task description."
         self.task_category = "Sample Category"
+
+    def test_task_initialization(self):
+        #test making sure that the task class is initialized properly
+        task = Task(
+            self.task_title,
+            self.task_due_date,
+            self.task_description,
+            self.task_category
+        )
+
+
+if __name__ == '__main__':
+    unittest.main()
