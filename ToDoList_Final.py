@@ -449,3 +449,13 @@ class TextBasedToDoListApp:
                         if t.title == title:
                             task = t
                             break
+
+                if task:
+                    self.special_project.add_task_to_project(task, project_name)
+                    print(f"Task '{title}' added to special project '{project_name}'.")
+                    break
+                else:
+                    print(f"Task '{title}' not found.")
+                    break
+            except TypeError as e:
+                print(f"Error: {e}. Please enter valid input types.")
