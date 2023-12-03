@@ -263,3 +263,19 @@ class SpecialProjects(TaskList):
             print(f"Task '{title}' in project '{project_name}' not found")
         else:
             print(f"Project '{project_name}' not found")
+
+class TextBasedToDoListApp:
+    def __init__(self):
+        """
+        This represents an interactive task app
+
+        Returns: None
+
+        Arguments:
+            task_list (TaskList): task list object to be used and displayed
+            special_project (SpecialProjects): special projects object to be used and displayed
+            completion_rates (list): Completion rate list to keep track of completion rate
+        """
+        self.task_list = TaskList()
+        self.special_project = SpecialProjects()
+        self.completion_rates = []
