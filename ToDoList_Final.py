@@ -172,3 +172,21 @@ class SpecialProjects(TaskList):
         """
         total_tasks = 0
         completed_tasks = 0
+
+        #iterates through all tasks and adds one to the total task counter
+        for tasks in self.categories.values():
+            for task in tasks:
+                total_tasks += 1
+                #checks to see if the task was completed before the due date,
+                #if yes then it adds one to the completed task counter
+                if datetime.now() <= task.due_date and task.completed:
+                    completed_tasks += 1
+
+        #calculates the completion rate
+        if total_tasks == 0:
+            completion_rate = 0
+        else:
+            completion_rate = (completed_tasks / total_tasks) * 100
+
+        #returns the completion rate to 2 decimal points
+        return f"Completion Rate: {completion_rate:.2f}%"
