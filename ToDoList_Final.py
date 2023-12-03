@@ -410,3 +410,21 @@ class TextBasedToDoListApp:
                 break
             except (TypeError, ValueError) as e:
                 print(f"Error: {e}. Please enter valid input.")
+
+    def delete_task(self):
+        """
+        Delete a task from the task list based on title
+
+        Raises: TypeError: If there is an issue with the input type
+
+        Returns: None
+
+        Args: None
+        """
+        while True:
+            try:
+                title = input("Enter the title of the task to delete: ")
+                self.task_list.delete_task(title)
+                break
+            except TypeError as e:
+                print(f"Error: {e}. Please enter valid input types.")
