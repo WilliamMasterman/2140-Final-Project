@@ -279,3 +279,17 @@ class TextBasedToDoListApp:
         self.task_list = TaskList()
         self.special_project = SpecialProjects()
         self.completion_rates = []
+
+    def run(self):
+        """
+        Run the Text-Based To-Do List Application.
+
+        Returns: None
+        
+        Args: None
+        """
+        while True:
+            print("\n===== To-Do List =====")
+            print("1. Tasks")
+            print("2. Special Projects")
+            print("0. Exit")
