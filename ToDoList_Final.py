@@ -319,7 +319,7 @@ class TextBasedToDoListApp:
             print("1. Add Task")
             print("2. Edit Task")
             print("3. Mark Task Complete")
-            print("4. View All Tasks")  # New option
+            print("4. View All Tasks")
             print("5. View Completion Rate")
             print("6. Delete Task")
             print("0. Back to Main Menu")
@@ -333,7 +333,7 @@ class TextBasedToDoListApp:
             elif task_choice == "3":
                 self.mark_task_complete()
             elif task_choice == "4":
-                self.view_all_tasks()  # New option
+                self.view_all_tasks()
             elif task_choice == "5":
                 self.view_completion_rate()
             elif task_choice == "6":
