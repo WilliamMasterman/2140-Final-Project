@@ -498,7 +498,7 @@ class TextBasedToDoListApp:
 
     def view_completion_rate(self):
         """
-        Retrieves and displays the completion rate of a special project.
+        Retrieves and displays the completion rate of a special project
 
         Returns: None
 
@@ -515,3 +515,17 @@ class TextBasedToDoListApp:
                 print(f"Error: {e}. Please enter valid input types.")
 
         self.plot_completion_rate_graph()
+
+    def plot_completion_rate_graph(self):
+        """
+        Plots completion rate as a function of time
+
+        Returns: None
+
+        Args: None
+        """
+        plt.plot(self.completion_rates)
+        plt.xlabel('Time (Days)')
+        plt.ylabel('Completion Rate (%)')
+        plt.title('Completion Rate Over Time')
+        plt.show()
