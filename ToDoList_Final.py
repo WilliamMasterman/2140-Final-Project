@@ -529,3 +529,27 @@ class TextBasedToDoListApp:
         plt.ylabel('Completion Rate (%)')
         plt.title('Completion Rate Over Time')
         plt.show()
+
+    def edit_task(self):
+        """
+        modifies a task in the task list with new information
+
+        Raises:
+            TypeError: if issue arises with the task list or editing
+            ValueError: ifdue date input is in an incorrect format
+
+        Returns: None
+
+        Args: None
+        """
+        while True:
+            try:
+                title = input("Enter the title of the task to edit: ")
+                new_title = input("Enter the new title: ")
+                new_due_date_str = input("Enter the new due date (day/month/year): ")
+
+
+
+if __name__ == "__main__":
+    app = TextBasedToDoListApp()
+    app.run()
