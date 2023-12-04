@@ -450,6 +450,7 @@ class TextBasedToDoListApp:
                 break
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
+
     def add_task_to_special_project(self):
         """
         Add a task to a special project
