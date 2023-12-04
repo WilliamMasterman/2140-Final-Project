@@ -464,6 +464,8 @@ class TextBasedToDoListApp:
         """
         Display tasks within a selected special project
         
+        Raises: ValueError: If there is an issue with the input
+
         Returns: None
 
         Args: None
@@ -478,3 +480,18 @@ class TextBasedToDoListApp:
             print("\n===== Special Projects =====")
             for idx, project in enumerate(projects, start=1):
                 print(f"{idx}. {project}")
+
+            try:
+                choice = int(input("Enter the number of the project to view tasks (0 to cancel): "))
+                if choice == 0:
+                    return
+                elif 1 <= choice <= len(projects):
+                    project_name = projects[choice - 1]
+                    tasks_str = self.special_project.view_tasks_in_project(project_name)
+                    print(f"\n===== Tasks in Special Project '{project_name}' =====")
+                    print(tasks_str)
+                    return
+                else:
+                    print("Invalid choice. Please enter a valid number.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
