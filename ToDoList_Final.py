@@ -548,6 +548,17 @@ class TextBasedToDoListApp:
                 new_title = input("Enter the new title: ")
                 new_due_date_str = input("Enter the new due date (day/month/year): ")
 
+                new_due_date_str = new_due_date_str.replace("'", "").replace("(", "").replace(")", "")
+
+                new_due_date = datetime.strptime(new_due_date_str, "%d/%m/%y")
+                new_description = input("Enter the new description: ")
+                new_category = input("Enter the new category: ")
+
+                self.task_list.edit_task(title, new_title, new_due_date, new_description, new_category)
+                break
+            except (TypeError, ValueError) as e:
+                print(f"Error: {e}. Please enter valid input.")
+
 
 
 if __name__ == "__main__":
