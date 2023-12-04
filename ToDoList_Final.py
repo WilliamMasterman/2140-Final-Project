@@ -319,8 +319,9 @@ class TextBasedToDoListApp:
             print("1. Add Task")
             print("2. Edit Task")
             print("3. Mark Task Complete")
-            print("4. View Completion Rate")
-            print("5. Delete Task")
+            print("4. View All Tasks")  # New option
+            print("5. View Completion Rate")
+            print("6. Delete Task")
             print("0. Back to Main Menu")
 
             task_choice = input("Enter your choice: ")
@@ -332,13 +333,28 @@ class TextBasedToDoListApp:
             elif task_choice == "3":
                 self.mark_task_complete()
             elif task_choice == "4":
-                self.view_completion_rate()
+                self.view_all_tasks()  # New option
             elif task_choice == "5":
+                self.view_completion_rate()
+            elif task_choice == "6":
                 self.delete_task()
             elif task_choice == "0":
                 break
             else:
                 print("Invalid choice. Please enter a valid option.")
+
+    def view_all_tasks(self):
+        """
+        Display information about all tasks in the task list
+
+        Returns: None
+
+        Args: None
+        """
+        tasks_str = self.task_list.view_tasks()
+        print("\n===== All Tasks =====")
+        print(tasks_str)
+
 
     def run_special_project_menu(self):
         """
