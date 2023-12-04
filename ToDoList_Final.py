@@ -495,3 +495,23 @@ class TextBasedToDoListApp:
                     print("Invalid choice. Please enter a valid number.")
             except ValueError:
                 print("Invalid input. Please enter a number.")
+
+    def view_completion_rate(self):
+        """
+        Retrieves and displays the completion rate of a special project.
+
+        Returns: None
+
+        Args: None
+        """
+        while True:
+            try:
+                completion_rate_str = self.special_project.view_completion_rate()
+                print("\n===== Completion Rate =====")
+                print(completion_rate_str)
+                self.completion_rates.append(float(completion_rate_str.split()[2][:-1]))
+                break
+            except ValueError as e:
+                print(f"Error: {e}. Please enter valid input types.")
+
+        self.plot_completion_rate_graph()
