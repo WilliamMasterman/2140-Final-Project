@@ -368,11 +368,11 @@ class TextBasedToDoListApp:
             elif special_project_choice == "3":
                 self.edit_task_in_special_project()
             elif special_project_choice == "4":
-                self.mark_task_complete_in_special_project()
+                self.mark_task_complete_in_project()
             elif special_project_choice == "5":
-                self.view_completion_rate_for_special_project()
+                self.view_completion_rate()
             elif special_project_choice == "6":
-                self.delete_task_in_special_project()
+                self.delete_task_in_project()
             elif special_project_choice == "7":
                 self.delete_special_project()
             elif special_project_choice == "0":
@@ -401,6 +401,12 @@ class TextBasedToDoListApp:
                 due_date_str = due_date_str.replace("'", "").replace("(", "").replace(")", "")
 
                 due_date = datetime.strptime(due_date_str, "%d/%m/%y")
+
+                # Check if the due date is in the past
+                if due_date < datetime.now():
+                    raise ValueError("Due date cannot be in the past")
+
+
                 description = input("Enter task description: ")
                 category = input("Enter task category: ")
 
