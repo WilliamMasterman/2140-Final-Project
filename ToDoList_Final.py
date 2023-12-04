@@ -559,7 +559,23 @@ class TextBasedToDoListApp:
             except (TypeError, ValueError) as e:
                 print(f"Error: {e}. Please enter valid input.")
 
+    def mark_task_complete(self):
+        """
+        Marks a task as complete in the task list
 
+        Raises: TypeError: if issue with the task list
+
+        Returns: None
+
+        Args: None
+        """
+        while True:
+            try:
+                title = input("Enter the title of the task to mark as complete: ")
+                self.task_list.mark_task_complete(title)
+                break
+            except TypeError as e:
+                print(f"Error: {e}. Please enter valid input types.")
 
 if __name__ == "__main__":
     app = TextBasedToDoListApp()
