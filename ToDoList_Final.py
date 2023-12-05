@@ -408,30 +408,32 @@ class TextBasedToDoListApp:
 
         Args: None
         """
+        title = input("Enter task title: ")
+
         while True:
+            due_date_str = input("Enter due date (day/month/year): ")
+
+            # this removes extra spaces from input
+            due_date_str = due_date_str.replace("'", "").replace("(", "").replace(")", "")
+
             try:
-                title = input("Enter task title: ")
-                due_date_str = input("Enter due date (day/month/year): ")
-
-                #this removes extra spaces from input
-                due_date_str = due_date_str.replace("'", "").replace("(", "").replace(")", "")
-
                 due_date = datetime.strptime(due_date_str, "%d/%m/%y")
 
                 # Check if the due date is in the past
                 if due_date < datetime.now():
                     raise ValueError("Due date cannot be in the past")
 
+                break #if the date is valid, break the loop and ask for other information
+            except ValueError as e:
+                print(f"Error: {e}. Please enter a valid due date.")
 
-                description = input("Enter task description: ")
-                category = input("Enter task category: ")
+        description = input("Enter task description: ")
+        category = input("Enter task category: ")
 
-                task = Task(title, due_date, description, category)
-                self.task_list.add_task(task)
-                print("Task successfully added!")
-                break
-            except (TypeError, ValueError) as e:
-                print(f"Error: {e}. Please enter valid input.")
+        task = Task(title, due_date, description, category)
+        self.task_list.add_task(task)
+        print("Task successfully added!")
+
 
     def delete_task(self):
         """
