@@ -466,6 +466,8 @@ class TextBasedToDoListApp:
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
 
+
+
     def add_task_to_special_project(self):
         """
         Add a task to a special project
@@ -497,6 +499,8 @@ class TextBasedToDoListApp:
                     break
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
+
+
 
     def view_tasks_in_special_project(self):
         """
@@ -534,39 +538,47 @@ class TextBasedToDoListApp:
             except ValueError:
                 print("Invalid input. Please enter a number.")
 
+
+
     def view_completion_rate(self):
-        """
-        Retrieves and displays the completion rate of a special project
+            """
+            Displays the completion rate of regular tasks and plots the completion rate graph.
 
-        Returns: None
+            Returns: None
 
-        Args: None
-        """
-        while True:
-            try:
-                completion_rate_str = self.special_project.view_completion_rate()
-                print("\n===== Completion Rate =====")
-                print(completion_rate_str)
-                self.completion_rates.append(float(completion_rate_str.split()[2][:-1]))
-                break
-            except ValueError as e:
-                print(f"Error: {e}. Please enter valid input types.")
+            Args: None
+            """
+            total_tasks = 0
+            completed_tasks = 0
 
-        self.plot_completion_rate_graph()
+            #keeps track of how mnay tasks there are and the amount of completed tasks
+            for tasks in self.task_list.categories.values():
+                for task in tasks:
+                    total_tasks += 1
+                    if task.completed:
+                        completed_tasks += 1
 
-    def plot_completion_rate_graph(self):
-        """
-        Plots completion rate as a function of time
+            #checks to make sure that a task exists, if so, calculate and show
+            if total_tasks > 0:
+                completion_rate = (completed_tasks / total_tasks) * 100
+                print(f"\n===== Completion Rate =====")
+                print(f"Total Tasks: {total_tasks}")
+                print(f"Completed Tasks: {completed_tasks}")
+                print(f"Completion Rate: {completion_rate:.2f}%")
 
-        Returns: None
+                #adds completion rate to the list in order to graph
+                self.completion_rates.append(completion_rate)
 
-        Args: None
-        """
-        plt.plot(self.completion_rates)
-        plt.xlabel('Time (Days)')
-        plt.ylabel('Completion Rate (%)')
-        plt.title('Completion Rate Over Time')
-        plt.show()
+                #this plots the completion rate
+                plt.plot(self.completion_rates)
+                plt.xlabel('Time (Iterations)')
+                plt.ylabel('Completion Rate (%)')
+                plt.title('Completion Rate Over Time')
+                plt.show()
+            else:
+                print("\nNo tasks available to calculate completion rate.")
+
+
 
     def edit_task(self):
         """
@@ -597,6 +609,8 @@ class TextBasedToDoListApp:
             except (TypeError, ValueError) as e:
                 print(f"Error: {e}. Please enter valid input.")
 
+
+
     def mark_task_complete(self):
         """
         Marks a task as complete in the task list
@@ -614,6 +628,8 @@ class TextBasedToDoListApp:
                 break
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
+
+                
 
 if __name__ == "__main__":
     app = TextBasedToDoListApp()
