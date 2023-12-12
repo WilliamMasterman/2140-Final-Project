@@ -306,42 +306,45 @@ class TextBasedToDoListApp:
             else:
                 print("Invalid choice. Please enter a valid option.")
 
-    def run_task_menu(self):
-        """
-        run the text based task menu
+    def run_special_project_menu(self):
+            """
+            run the text-based special projects menu
 
-        Returns: None
+            Returns: None
 
-        Args: None
-        """
-        while True:
-            print("\n===== Tasks =====")
-            print("1. Add Task")
-            print("2. Edit Task")
-            print("3. Mark Task Complete")
-            print("4. View All Tasks")
-            print("5. View Completion Rate")
-            print("6. Delete Task")
-            print("0. Back to Main Menu")
+            Args: None
+            """
+            while True:
+                print("\n===== Special Projects =====")
+                print("1. Add Task to Special Project")
+                print("2. View Tasks in Special Project")
+                print("3. Mark Task Complete in Special Project")
+                print("4. View Completion Rate for Special Project")
+                print("5. Delete Task in Special Project")
+                print("6. Add Special Project")
+                print("7. Delete Special Project")
+                print("0. Back to Main Menu")
 
-            task_choice = input("Enter your choice: ")
+                special_project_choice = input("Enter your choice: ")
 
-            if task_choice == "1":
-                self.add_task()
-            elif task_choice == "2":
-                self.edit_task()
-            elif task_choice == "3":
-                self.mark_task_complete()
-            elif task_choice == "4":
-                self.view_all_tasks()
-            elif task_choice == "5":
-                self.view_completion_rate()
-            elif task_choice == "6":
-                self.delete_task()
-            elif task_choice == "0":
-                break
-            else:
-                print("Invalid choice. Please enter a valid option.")
+                if special_project_choice == "1":
+                    self.add_task_to_special_project()
+                elif special_project_choice == "2":
+                    self.view_tasks_in_special_project()
+                elif special_project_choice == "3":
+                    self.mark_task_complete_in_project()
+                elif special_project_choice == "4":
+                    self.view_completion_rate_in_special_project()
+                elif special_project_choice == "5":
+                    self.delete_task_in_project()
+                elif special_project_choice == "6":
+                    self.add_special_project()
+                elif special_project_choice == "7":
+                    self.delete_special_project()
+                elif special_project_choice == "0":
+                    break
+                else:
+                    print("Invalid choice. Please enter a valid option.")
 
     def view_all_tasks(self):
         """
@@ -366,13 +369,11 @@ class TextBasedToDoListApp:
         """
         while True:
             print("\n===== Special Projects =====")
-            print("1. View Tasks in Special Project")
-            print("2. Add Task to Special Project")
-            print("3. Edit Task in Special Project")
+            print("1. Add Task to Special Project")
+            print("2. View Tasks in Special Project")
             print("4. Mark Task Complete in Special Project")
-            print("5. View Completion Rate for Special Project")
             print("6. Delete Task in Special Project")
-            print("7. Delete Special Project")
+            print("5. View Completion Rate for Special Project")
             print("0. Back to Main Menu")
 
             special_project_choice = input("Enter your choice: ")
