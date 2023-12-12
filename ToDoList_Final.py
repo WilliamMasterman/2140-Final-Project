@@ -579,14 +579,13 @@ class TextBasedToDoListApp:
                 print("\nNo tasks available to calculate completion rate.")
 
 
-
     def edit_task(self):
         """
-        modifies a task in the task list with new information
+        Modifies a task in the task list with new information.
 
         Raises:
-            TypeError: if issue arises with the task list or editing
-            ValueError: ifdue date input is in an incorrect format
+            TypeError: If an issue arises with the task list or editing
+            ValueError: If the due date input is in an incorrect format or in the past
 
         Returns: None
 
@@ -595,16 +594,84 @@ class TextBasedToDoListApp:
         while True:
             try:
                 title = input("Enter the title of the task to edit: ")
-                new_title = input("Enter the new title: ")
-                new_due_date_str = input("Enter the new due date (day/month/year): ")
+                task_to_edit = None
 
-                new_due_date_str = new_due_date_str.replace("'", "").replace("(", "").replace(")", "")
+                #chhecks if a task with the provided title already exists
+                for category, tasks in self.task_list.categories.items():
+                    for task in tasks:
+                        if task.title == title:
+                            task_to_edit = task
+                            break
 
-                new_due_date = datetime.strptime(new_due_date_str, "%d/%m/%y")
-                new_description = input("Enter the new description: ")
-                new_category = input("Enter the new category: ")
+                if task_to_edit is not None:
+                    #prompts if the user wants to edit the title or not
+                    if input("Do you want to change the title? (y/n): ").lower() == 'y':
+                        #if yes, check to see if new title already exists
+                        while True:
+                            new_title = input("Enter the new title: ")
 
-                self.task_list.edit_task(title, new_title, new_due_date, new_description, new_category)
+                            #checks if a task with the new title already exists
+                            for tasks in self.task_list.categories.values():
+                                for task in tasks:
+                                    if task.title == new_title and task.title != title:
+                                        print(f"Error: A task with the title '{new_title}' already exists. "
+                                            f"Please choose a unique title.")
+                                        break
+                                else:
+                                    continue  #will only execute if the inner loop doesnt break
+                                break  #will only execute if duplicate title found
+                            else:
+                                break  #will only execute if unique title provided
+
+                        task_to_edit.title = new_title
+
+                    #continue with editing process
+                    print("Select aspects to edit:")
+                    print("1. Due Date")
+                    print("2. Description")
+                    print("3. Category")
+                    print("4. All")
+                    edit_choices = input("Enter comma-separated numbers for desired: ")
+                    tasks_to_edit = [int(x) for x in edit_choices.split(",")]
+
+                    previous_category = task_to_edit.category  #store the previous category
+
+                    if 1 in tasks_to_edit or 4 in tasks_to_edit:
+                        while True:
+                            new_due_date_str = input("Enter the new due date (day/month/year): ")
+                            new_due_date_str = new_due_date_str.replace("'", "").replace("(", "").replace(")", "")
+                            try:
+                                new_due_date = datetime.strptime(new_due_date_str, "%d/%m/%y")
+                                # check to see if due date is valid
+                                if new_due_date >= datetime.now():
+                                    task_to_edit.due_date = new_due_date
+                                    break
+                                else:
+                                    print("Error: Due date cannot be in the past. Please enter a valid due date.")
+                            except ValueError:
+                                print("Error: Please enter a valid date format.")
+
+                    if 2 in tasks_to_edit or 4 in tasks_to_edit:
+                        task_to_edit.description = input("Enter the new description: ")
+
+                    if 3 in tasks_to_edit or 4 in tasks_to_edit:
+                        new_category = input("Enter the new category: ")
+
+                        #update the category
+                        tasks.remove(task_to_edit)
+                        self.task_list.add_task(
+                            Task(task_to_edit.title, task_to_edit.due_date, task_to_edit.description, new_category,
+                                task_to_edit.completed))
+
+                        #check to see if category is empty, if so, delete
+                        if not tasks and previous_category in self.task_list.categories:
+                            del self.task_list.categories[previous_category]
+
+                    print(f"Task '{title}' edited")
+                    return
+
+                #if title is not found then throw error and show screen again
+                print(f"Task '{title}' not found")
                 break
             except (TypeError, ValueError) as e:
                 print(f"Error: {e}. Please enter valid input.")
@@ -629,7 +696,7 @@ class TextBasedToDoListApp:
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
 
-                
+
 
 if __name__ == "__main__":
     app = TextBasedToDoListApp()
