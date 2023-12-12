@@ -398,7 +398,7 @@ class TextBasedToDoListApp:
 
     def add_task(self):
         """
-        Adds a new task to the task list
+        Adds a new task to the task list.
 
         Raises:
             ValueError: If there is an issue with the input
@@ -408,7 +408,20 @@ class TextBasedToDoListApp:
 
         Args: None
         """
-        title = input("Enter task title: ")
+        while True:
+            title = input("Enter task title: ")
+
+            #this checks if a task with the same title already exists
+            for tasks in self.task_list.categories.values():
+                for task in tasks:
+                    if task.title == title:
+                        print(f"Error: A task with the title '{title}' already exists. Please choose a unique title.")
+                        break
+                else:
+                    continue  # will execute only if the inner loop doesnt break
+                break  #will only execute if duplicate title found
+            else:
+                break  #will only execute if unique title provided
 
         while True:
             due_date_str = input("Enter due date (day/month/year): ")
@@ -419,11 +432,11 @@ class TextBasedToDoListApp:
             try:
                 due_date = datetime.strptime(due_date_str, "%d/%m/%y")
 
-                # Check if the due date is in the past
+                #this checks to see if the due date is in the past and invalid
                 if due_date < datetime.now():
                     raise ValueError("Due date cannot be in the past")
 
-                break #if the date is valid, break the loop and ask for other information
+                break  #breaks loop if due date valid
             except ValueError as e:
                 print(f"Error: {e}. Please enter a valid due date.")
 
