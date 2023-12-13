@@ -41,7 +41,29 @@ class TestTaskList(unittest.TestCase):
         self.task_list.delete_task("Test Task")
         self.assertNotIn("Test Task", [t.title for t in self.task_list.categories.get("Test Category", [])])
 
+    def test_view_tasks(self):
+        #create 2 tasks mand make sure that they display correctly
+        task1 = Task("Task 1", datetime(2023, 1, 1), "Description 1", "Category 1")
+        task2 = Task("Task 2", datetime(2023, 1, 2), "Description 2", "Category 1")
+        self.task_list.add_task(task1)
+        self.task_list.add_task(task2)
 
+        expected_output = (
+            "\n===== Category: Category 1 =====\n"
+            "Title: Task 1\n"
+            "Due Date: 2023-01-01 00:00:00\n"
+            "Description: Description 1\n"
+            "Category: Category 1\n"
+            "Completed: No\n\n"
+            "Title: Task 2\n"
+            "Due Date: 2023-01-02 00:00:00\n"
+            "Description: Description 2\n"
+            "Category: Category 1\n"
+            "Completed: No\n\n"
+        )
+
+        actual_output = self.task_list.view_tasks()
+        self.assertEqual(actual_output, expected_output)
 
 if __name__ == '__main__':
     unittest.main()
