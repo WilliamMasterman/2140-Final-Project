@@ -36,6 +36,23 @@ class TestSpecialProjects(unittest.TestCase):
         task_title = "Test Task"
         task_due_date = datetime(2023, 1, 1)
         task_description = "Test Description"
+        task_category = "Test Category"
+        task = Task(task_title, task_due_date, task_description, task_category)
+
+        project_name = "Test Project"
+        self.special_project.categories[project_name] = [task]
+
+        expected_output = (
+            "Title: Test Task\n"
+            "Due Date: 2023-01-01 00:00:00\n"
+            "Description: Test Description\n"
+            "Category: Test Category\n"
+            "Completed: No\n\n"
+        )
+
+        actual_output = self.special_project.view_tasks_in_project(project_name)
+        self.assertEqual(actual_output, expected_output)
+
 
 
 if __name__ == '__main__':
