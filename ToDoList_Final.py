@@ -245,7 +245,17 @@ class SpecialProjects(TaskList):
                         if task.title == title:
                             task_in_main_list = task
                             break
-
+                if task_in_main_list:
+                    # Mark the task as complete in the main task list
+                    task_in_main_list.completed = True
+                    print(f"Task '{title}' marked as complete in the main task list.")
+                else:
+                    print(f"Task '{title}' not found in the main task list.")
+            else:
+                print(f"Task '{title}' not found in project '{project_name}'.")
+        else:
+            print(f"Project '{project_name}' not found.")
+            
 
 class TextBasedToDoListApp:
     def __init__(self):
