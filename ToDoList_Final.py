@@ -161,7 +161,6 @@ class SpecialProjects(TaskList):
             print(f"Special project '{project_name}' not found.")
 
 
-
     def add_task_to_project(self, task, project_name):
         """
         Adds a task to a specific project
@@ -219,6 +218,7 @@ class SpecialProjects(TaskList):
 
         return tasks_str
     
+
     def mark_task_complete_in_project(self, project_name, title):
         """
         Mark a task within a specific project as complete
@@ -245,6 +245,7 @@ class SpecialProjects(TaskList):
                         if task.title == title:
                             task_in_main_list = task
                             break
+
                 if task_in_main_list:
                     # Mark the task as complete in the main task list
                     task_in_main_list.completed = True
@@ -357,19 +358,6 @@ class TextBasedToDoListApp:
             else:
                 print("Invalid choice. Please enter a valid option.")
 
-    def view_all_tasks(self):
-        """
-        Display information about all tasks in the task list
-
-        Returns: None
-
-        Args: None
-        """
-        tasks_str = self.task_list.view_tasks()
-        print("\n===== All Tasks =====")
-        print(tasks_str)
-
-
     def run_special_project_menu(self):
             """
             run the text-based special projects menu
@@ -409,6 +397,31 @@ class TextBasedToDoListApp:
                     break
                 else:
                     print("Invalid choice. Please enter a valid option.")
+
+    def delete_special_project(self):
+        """
+        Delete a special project without deleting its tasks
+
+        Returns: None
+
+        Args: None
+        """
+        project_name = input("Enter the name of the special project to delete: ")
+        self.special_project.delete_special_project(project_name)
+
+
+    def view_all_tasks(self):
+        """
+        Display information about all tasks in the task list
+
+        Returns: None
+
+        Args: None
+        """
+        tasks_str = self.task_list.view_tasks()
+        print("\n===== All Tasks =====")
+        print(tasks_str)
+
 
     def add_task(self):
         """
