@@ -219,33 +219,32 @@ class SpecialProjects(TaskList):
 
         return tasks_str
     
-    def edit_task_in_project(self, project_name, title, new_title, new_due_date, new_description, new_category):
+    def mark_task_complete_in_project(self, project_name, title):
         """
-        edits a task within a specific project
+        Mark a task within a specific project as complete
 
         Returns: None
 
         Args:
             project_name (str): name of the project containing the task
-            title (str): title of the task to be edited
-            new_title (str): new title fortask
-            new_due_date (datetime): new due date for task
-            new_description (str): new description for task
-            new_category (str): new category for task
+            title (str): title of the task to be marked as complete
         """
         if project_name in self.categories:
-            for task in self.categories[project_name]:
-                if task.title == title:
-                    task.title = new_title
-                    task.due_date = new_due_date
-                    task.description = new_description
-                    task.category = new_category
-                    print(f"Task '{title}' in project '{project_name}' edited")
-                    return
+            # Find the task in the special project
+            task_in_project = next((t for t in self.categories[project_name] if t.title == title), None)
 
-            print(f"Task '{title}' in project '{project_name}' not found")
-        else:
-            print(f"Project '{project_name}' not found")
+            if task_in_project:
+                # Mark the task as complete in the special project
+                task_in_project.completed = True
+                print(f"Task '{title}' in project '{project_name}' marked as complete in special project.")
+                
+                # Find the task in the main task list
+                task_in_main_list = None
+                for tasks in self.categories.values():
+                    for task in tasks:
+                        if task.title == title:
+                            task_in_main_list = task
+                            break
 
 
 class TextBasedToDoListApp:
