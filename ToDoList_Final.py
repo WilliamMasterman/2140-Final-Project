@@ -359,44 +359,36 @@ class TextBasedToDoListApp:
                 print("Invalid choice. Please enter a valid option.")
 
     def run_special_project_menu(self):
-            """
-            run the text-based special projects menu
+        while True:
+            print("\n===== Special Projects =====")
+            print("1. Add Task to Special Project")
+            print("2. View Tasks in Special Project")
+            print("3. Mark Task Complete in Special Project")
+            print("4. Delete Task in Special Project")
+            print("5. Add Special Project")
+            print("6. Delete Special Project")
+            print("0. Back to Main Menu")
 
-            Returns: None
+            special_project_choice = input("Enter your choice: ")
 
-            Args: None
-            """
-            while True:
-                print("\n===== Special Projects =====")
-                print("1. Add Task to Special Project")
-                print("2. View Tasks in Special Project")
-                print("3. Mark Task Complete in Special Project")
-                print("4. View Completion Rate for Special Project")
-                print("5. Delete Task in Special Project")
-                print("6. Add Special Project")
-                print("7. Delete Special Project")
-                print("0. Back to Main Menu")
-
-                special_project_choice = input("Enter your choice: ")
-
-                if special_project_choice == "1":
-                    self.add_task_to_special_project()
-                elif special_project_choice == "2":
-                    self.view_tasks_in_special_project()
-                elif special_project_choice == "3":
-                    self.mark_task_complete_in_project()
-                elif special_project_choice == "4":
-                    self.view_completion_rate_in_special_project()
-                elif special_project_choice == "5":
-                    self.delete_task_in_project()
-                elif special_project_choice == "6":
-                    self.add_special_project()
-                elif special_project_choice == "7":
-                    self.delete_special_project()
-                elif special_project_choice == "0":
-                    break
-                else:
-                    print("Invalid choice. Please enter a valid option.")
+            if special_project_choice == "1":
+                self.add_task_to_special_project()
+            elif special_project_choice == "2":
+                self.view_tasks_in_special_project()
+            elif special_project_choice == "3":
+                project_name = input("Enter the name of the project: ")
+                title = input("Enter the title of the task to mark as complete: ")
+                self.special_project.mark_task_complete_in_project(project_name, title)
+            elif special_project_choice == "4":
+                self.delete_task_in_project_special_project()
+            elif special_project_choice == "5":
+                self.add_special_project()
+            elif special_project_choice == "6":
+                self.delete_special_project()
+            elif special_project_choice == "0":
+                break
+            else:
+                print("Invalid choice. Please enter a valid option.")
 
     def delete_special_project(self):
         """
@@ -408,6 +400,19 @@ class TextBasedToDoListApp:
         """
         project_name = input("Enter the name of the special project to delete: ")
         self.special_project.delete_special_project(project_name)
+
+
+    def delete_task_in_project_special_project(self):
+        """
+        Delete a task within a specific project without completely deleting it from the task list
+
+        Returns: None
+
+        Args: None
+        """
+        project_name = input("Enter the name of the project: ")
+        title = input("Enter the title of the task to delete: ")
+        self.special_project.delete_task_in_project(project_name, title)
 
 
     def view_all_tasks(self):
