@@ -620,7 +620,13 @@ class TextBasedToDoListApp:
         if project_name in self.categories:
             tasks = self.categories[project_name]
             for task in tasks:
-
+                if task.title == title:
+                    tasks.remove(task)
+                    print(f"Task '{title}' removed from project '{project_name}'")
+                    return
+            print(f"Task '{title}' not found in project '{project_name}'")
+        else:
+            print(f"Project '{project_name}' not found")
 
     def view_completion_rate(self):
             """
