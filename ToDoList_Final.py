@@ -172,12 +172,17 @@ class SpecialProjects(TaskList):
             task (Task): the task to be added to the project
             project_name (str): the name of the project to which the task will be added
         """
-        #this checks to see if the project name is in the categories dict
-        #if not it creates an emoty list
-        # if it is then it appends a task
+        # this checks to see if the project name is in the categories dict
+        # if not, it creates an empty list
+        # if it is, then it appends a task
         if project_name not in self.categories:
-            self.categories[project_name] = []
-        self.categories[project_name].append(task)
+            print(f"Error: Special project '{project_name}' does not exist. Please create the project first.")
+            return
+
+        # Find the task in the special project
+        existing_task = next((t for t in self.categories[project_name] if t.title == task.title), None)
+
+
 
     
     def view_tasks_in_project(self, project_name):
