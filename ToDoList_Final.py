@@ -237,7 +237,7 @@ class SpecialProjects(TaskList):
                 # Mark the task as complete in the special project
                 task_in_project.completed = True
                 print(f"Task '{title}' in project '{project_name}' marked as complete in special project.")
-                
+
                 # Find the task in the main task list
                 task_in_main_list = None
                 for tasks in self.categories.values():
@@ -607,6 +607,19 @@ class TextBasedToDoListApp:
             except ValueError:
                 print("Invalid input. Please enter a number.")
 
+    def delete_task_in_project(self, project_name, title):
+        """
+        Delete a task within a specific project without completely deleting it from the task list
+
+        Returns: None
+
+        Args:
+            project_name (str): name of the project containing the task
+            title (str): title of the task to be deleted
+        """
+        if project_name in self.categories:
+            tasks = self.categories[project_name]
+            for task in tasks:
 
 
     def view_completion_rate(self):
