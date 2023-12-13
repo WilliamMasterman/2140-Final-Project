@@ -525,7 +525,7 @@ class TextBasedToDoListApp:
                 except TypeError as e:
                     print(f"Error: {e}. Please enter valid input types.")
 
-                    
+
 
     def add_task_to_special_project(self):
         """
@@ -542,19 +542,29 @@ class TextBasedToDoListApp:
                 title = input("Enter the title of the task: ")
                 project_name = input("Enter the name of the special project: ")
 
-                task = None
+                # Find the task in the task list
+                task_to_add = None
                 for tasks in self.task_list.categories.values():
                     for t in tasks:
                         if t.title == title:
-                            task = t
+                            task_to_add = t
                             break
 
-                if task:
-                    self.special_project.add_task_to_project(task, project_name)
-                    print(f"Task '{title}' added to special project '{project_name}'.")
+                if task_to_add:
+                    # Check if the task is already in the special project
+                    if project_name not in self.special_project.categories:
+                        print(f"Error: Special project '{project_name}' does not exist. Please create the project first.")
+                        return
+
+                    if task_to_add in self.special_project.categories.get(project_name, []):
+                        print(f"Task '{title}' is already in special project '{project_name}'.")
+                        return
+
+                    # Add the task to the special project
+                    self.special_project.add_task_to_project(task_to_add, project_name)
                     break
                 else:
-                    print(f"Task '{title}' not found.")
+                    print(f"Task '{title}' not found in the task list. Please enter a valid task title.")
                     break
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
