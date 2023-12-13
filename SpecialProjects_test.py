@@ -75,7 +75,20 @@ class TestSpecialProjects(unittest.TestCase):
             if task.title == task_title:
                 self.assertTrue(task.completed, f"Task '{task_title}' should be marked as complete in the project")
 
+    def test_delete_task_in_project(self):
+        #tests deleting a task in proj
+        task_title = "Test Task"
+        task_due_date = datetime(2023, 1, 1)
+        task_description = "Test Description"
+        task_category = "Test Category"
+        task = Task(task_title, task_due_date, task_description, task_category)
 
+        project_name = "Test Project"
+        self.special_project.categories[project_name] = [task]
+
+        #checks to see if the task is still in project or not
+        self.special_project.delete_task_in_project(project_name, task_title)
+        self.assertNotIn(task, self.special_project.categories[project_name])
 
 if __name__ == '__main__':
     unittest.main()
