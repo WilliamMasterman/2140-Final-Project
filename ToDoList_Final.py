@@ -182,7 +182,17 @@ class SpecialProjects(TaskList):
         # Find the task in the special project
         existing_task = next((t for t in self.categories[project_name] if t.title == task.title), None)
 
-
+        if existing_task:
+            # Update the existing task's details
+            existing_task.due_date = task.due_date
+            existing_task.description = task.description
+            existing_task.category = task.category
+            existing_task.completed = task.completed
+            print(f"Task '{task.title}' in special project '{project_name}' updated.")
+        else:
+            # Add the task to the special project
+            self.categories[project_name].append(task)
+            print(f"Task '{task.title}' added to special project '{project_name}'.")
 
     
     def view_tasks_in_project(self, project_name):
