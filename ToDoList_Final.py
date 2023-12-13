@@ -366,7 +366,7 @@ class TextBasedToDoListApp:
             print("1. Add Task to Special Project")
             print("2. View Tasks in Special Project")
             print("3. Mark Task Complete in Special Project")
-            print("4. Delete Task in Special Project")
+            print("4. Remove Task from Special Project")
             print("5. Add Special Project")
             print("6. Delete Special Project")
             print("0. Back to Main Menu")
@@ -414,7 +414,7 @@ class TextBasedToDoListApp:
         Args: None
         """
         project_name = input("Enter the name of the project: ")
-        title = input("Enter the title of the task to delete: ")
+        title = input("Enter the title of the task to remove: ")
         self.special_project.delete_task_in_project(project_name, title)
 
     def add_special_project(self):
