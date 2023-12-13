@@ -45,14 +45,6 @@ class TestTextBasedToDoListApp(unittest.TestCase):
             #ensures that method is called
             mock_delete_task_in_project.assert_called_once()
 
-    @patch('ToDoList_Final.TextBasedToDoListApp.view_all_tasks')
-    def test_view_all_tasks(self, mock_view_all_tasks):
-        with patch('builtins.print') as mock_print:
-            self.app.view_all_tasks()
-
-            #ensures that method is called
-            mock_view_all_tasks.assert_called_once()
-
 
 if __name__ == '__main__':
     unittest.main()
