@@ -36,6 +36,15 @@ class TestTextBasedToDoListApp(unittest.TestCase):
             #ensures that add_special_project method is called
             mock_add_special_project.assert_called_once()
 
+    @patch('builtins.input', side_effect=['Special Project 1', 'Task Title 1'])
+    def test_delete_task_in_project(self, mock_input):
+        with patch.object(self.app, 'delete_task_in_project') as mock_delete_task_in_project:
+            #call method that interacts with input
+            self.app.delete_task_in_project('Special Project 1', 'Task Title 1')
+
+            #ensures that method is called
+            mock_delete_task_in_project.assert_called_once()
+
 
 
 if __name__ == '__main__':
