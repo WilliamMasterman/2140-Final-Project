@@ -30,7 +30,6 @@ class TaskList:
         Arguments: None
         """
         self.categories = {}
-
     
     def add_task(self, task):
         """
@@ -43,7 +42,6 @@ class TaskList:
         if task.category not in self.categories:
             self.categories[task.category] = []
         self.categories[task.category].append(task)
-
 
     def delete_task(self, title: str):
         """
@@ -74,7 +72,6 @@ class TaskList:
         #if the title isnt found, tell user
         print(f"Task '{title}' not found")
 
-
     def view_tasks(self):
         """
         Creates formatted str for all aspects of task
@@ -95,7 +92,6 @@ class TaskList:
                 tasks_str += f"Category: {task.category}\n"
                 tasks_str += f"Completed: {'Yes' if task.completed else 'No'}\n\n"
         return tasks_str
-
 
     def edit_task(self, title, new_title, new_due_date, new_description, new_category):
         """
@@ -124,7 +120,6 @@ class TaskList:
         #if the title is not found print an error and restart the menu
         print(f"Task '{title}' not found")
 
-
     def mark_task_complete(self, title):
         """
         Marks a task as complete
@@ -146,7 +141,6 @@ class TaskList:
         print(f"Task '{title}' not found")
 
 class SpecialProjects(TaskList):
-
     def delete_special_project(self, project_name):
         """
         Delete a special project without deleting its tasks
@@ -161,7 +155,6 @@ class SpecialProjects(TaskList):
             print(f"Special project '{project_name}' deleted.")
         else:
             print(f"Special project '{project_name}' not found.")
-
 
     def add_task_to_project(self, task, project_name):
         """
@@ -194,7 +187,6 @@ class SpecialProjects(TaskList):
             #adds the task to the special project
             self.categories[project_name].append(task)
             print(f"Task '{task.title}' added to special project '{project_name}'.")
-
     
     def view_tasks_in_project(self, project_name):
         """
@@ -220,7 +212,6 @@ class SpecialProjects(TaskList):
 
         return tasks_str
     
-
     def mark_task_complete_in_project(self, project_name, title):
         """
         Mark a task within a specific project as complete
@@ -363,6 +354,13 @@ class TextBasedToDoListApp:
                 print("Invalid choice. Please enter a valid option.")
 
     def run_special_project_menu(self):
+        """
+        run the text based special project menu
+
+        Returns: None
+
+        Args: None
+        """
         while True:
             print("\n===== Special Projects =====")
             print("1. Add Task to Special Project")
@@ -397,7 +395,7 @@ class TextBasedToDoListApp:
 
     def delete_special_project(self):
         """
-        Delete a special project without deleting its tasks
+        deletes a special project without deleting its tasks
 
         Returns: None
 
@@ -409,7 +407,7 @@ class TextBasedToDoListApp:
 
     def delete_task_in_project_special_project(self):
         """
-        Delete a task within a specific project without completely deleting it from the task list
+        deletes a task within a specific project without completely deleting it from the task list
 
         Returns: None
 
@@ -419,11 +417,144 @@ class TextBasedToDoListApp:
         title = input("Enter the title of the task to delete: ")
         self.special_project.delete_task_in_project(project_name, title)
 
+    def add_special_project(self):
+            """
+            adds a new special project
 
+            Returns: None
+
+            Args: None
+            
+            Raises:
+                ValueError - If there is an issue with the input
+                TypeError - If there is a type mismatch in the input
+            """
+            while True:
+                try:
+                    project_name = input("Enter the name of the special project: ")
+
+                    #checks to see if proj title is unique
+                    if project_name not in self.special_project.categories:
+                        self.special_project.categories[project_name] = []
+                        print(f"Special project '{project_name}' added.")
+                        break
+                    else:
+                        print(f"Error: A special project with the name '{project_name}' already exists. "
+                            f"Please choose a unique name.")
+                except TypeError as e:
+                    print(f"Error: {e}. Please enter valid input types.")
+
+    def add_task_to_special_project(self):
+        """
+        adds a task to a special project
+
+        Returns: None
+
+        Args: None
+
+        Raises: 
+            TypeError - If there is an issue with the input types
+        """
+        while True:
+            try:
+                title = input("Enter the title of the task: ")
+                project_name = input("Enter the name of the special project: ")
+
+                #find the task in the tasklist
+                task_to_add = None
+                for tasks in self.task_list.categories.values():
+                    for t in tasks:
+                        if t.title == title:
+                            task_to_add = t
+                            break
+
+                if task_to_add:
+                    #checks to see if task alrady is in project
+                    if project_name not in self.special_project.categories:
+                        print(f"Error: Special project '{project_name}' does not exist. Please create the project first.")
+                        return
+
+                    if task_to_add in self.special_project.categories.get(project_name, []):
+                        print(f"Task '{title}' is already in special project '{project_name}'.")
+                        return
+
+                    #adds task to special proj
+                    self.special_project.add_task_to_project(task_to_add, project_name)
+                    break
+                else:
+                    print(f"Task '{title}' not found in the task list. Please enter a valid task title.")
+                    break
+            except TypeError as e:
+                print(f"Error: {e}. Please enter valid input types.")
+
+    def view_tasks_in_special_project(self):
+        """
+        display tasks within speciall proj
+
+        Returns: None
+
+        Args: None
+        
+        Raises: 
+            ValueError - If there is an issue with the input
+        """
+        while True:
+            #Checks to see if project exists
+            projects = list(self.special_project.categories.keys())
+
+            if not projects:
+                print("No special projects found.")
+                return
+
+            print("\n===== Special Projects =====")
+            for idx, project in enumerate(projects, start=1):
+                print(f"{idx}. {project}")
+
+            try:
+                choice = int(input("Enter the number of the project to view tasks (0 to cancel): "))
+                if choice == 0:
+                    return
+                elif 1 <= choice <= len(projects):
+                    project_name = projects[choice - 1]
+                    tasks_str = self.special_project.view_tasks_in_project(project_name)
+
+                    #checks to see if task exists in special proj
+                    if not tasks_str.strip():
+                        print(f"No tasks found in special project '{project_name}'.")
+                    else:
+                        print(f"\n===== Tasks in Special Project '{project_name}' =====")
+                        print(tasks_str)
+
+                    return
+                else:
+                    print("Invalid choice. Please enter a valid number.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+    def delete_task_in_project(self, project_name, title):
+        """
+        delete a task within project without deleting it from the task list
+
+        Returns: None
+
+        Args:
+            project_name (str): name of the project containing the task
+            title (str): title of the task to be deleted
+        """
+        if project_name in self.categories:
+            tasks = self.categories[project_name]
+            for task in tasks:
+                if task.title == title:
+                    tasks.remove(task)
+                    print(f"Task '{title}' removed from project '{project_name}'")
+                    return
+            print(f"Task '{title}' not found in project '{project_name}'")
+        else:
+            print(f"Project '{project_name}' not found")
 
     def view_all_tasks(self):
         """
-        Display information about all tasks in the task list
+        displays info about all tasks in the task list
 
         Returns: None
 
@@ -433,18 +564,17 @@ class TextBasedToDoListApp:
         print("\n===== All Tasks =====")
         print(tasks_str)
 
-
     def add_task(self):
         """
         Adds a new task to the task list.
 
-        Raises:
-            ValueError: If there is an issue with the input
-            TypeError: If there is a type mismatch in the input
-
         Returns: None
 
         Args: None
+
+        Raises:
+            ValueError: If there is an issue with the input
+            TypeError: If there is a type mismatch in the input
         """
         while True:
             title = input("Enter task title: ")
@@ -485,16 +615,15 @@ class TextBasedToDoListApp:
         self.task_list.add_task(task)
         print("Task successfully added!")
 
-
     def delete_task(self):
         """
         Delete a task from the task list based on title
 
-        Raises: TypeError: If there is an issue with the input type
-
         Returns: None
 
         Args: None
+
+        Raises: TypeError: If there is an issue with the input type
         """
         while True:
             try:
@@ -504,143 +633,9 @@ class TextBasedToDoListApp:
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
 
-    def add_special_project(self):
-            """
-            Adds a new special project
-
-            Raises:
-                ValueError: If there is an issue with the input
-                TypeError: If there is a type mismatch in the input
-
-            Returns: None
-
-            Args: None
-            """
-            while True:
-                try:
-                    project_name = input("Enter the name of the special project: ")
-
-                    # Check if the special project title is unique
-                    if project_name not in self.special_project.categories:
-                        self.special_project.categories[project_name] = []
-                        print(f"Special project '{project_name}' added.")
-                        break
-                    else:
-                        print(f"Error: A special project with the name '{project_name}' already exists. "
-                            f"Please choose a unique name.")
-                except TypeError as e:
-                    print(f"Error: {e}. Please enter valid input types.")
-
-    def add_task_to_special_project(self):
-        """
-        Add a task to a special project
-
-        Raises: TypeError: If there is an issue with the input types
-
-        Returns: None
-
-        Args: None
-        """
-        while True:
-            try:
-                title = input("Enter the title of the task: ")
-                project_name = input("Enter the name of the special project: ")
-
-                # Find the task in the task list
-                task_to_add = None
-                for tasks in self.task_list.categories.values():
-                    for t in tasks:
-                        if t.title == title:
-                            task_to_add = t
-                            break
-
-                if task_to_add:
-                    # Check if the task is already in the special project
-                    if project_name not in self.special_project.categories:
-                        print(f"Error: Special project '{project_name}' does not exist. Please create the project first.")
-                        return
-
-                    if task_to_add in self.special_project.categories.get(project_name, []):
-                        print(f"Task '{title}' is already in special project '{project_name}'.")
-                        return
-
-                    # Add the task to the special project
-                    self.special_project.add_task_to_project(task_to_add, project_name)
-                    break
-                else:
-                    print(f"Task '{title}' not found in the task list. Please enter a valid task title.")
-                    break
-            except TypeError as e:
-                print(f"Error: {e}. Please enter valid input types.")
-
-
-
-    def view_tasks_in_special_project(self):
-        """
-        Display tasks within a selected special project
-
-        Raises: ValueError: If there is an issue with the input
-
-        Returns: None
-
-        Args: None
-        """
-        while True:
-            projects = list(self.special_project.categories.keys())
-
-            if not projects:
-                print("No special projects found.")
-                return
-
-            print("\n===== Special Projects =====")
-            for idx, project in enumerate(projects, start=1):
-                print(f"{idx}. {project}")
-
-            try:
-                choice = int(input("Enter the number of the project to view tasks (0 to cancel): "))
-                if choice == 0:
-                    return
-                elif 1 <= choice <= len(projects):
-                    project_name = projects[choice - 1]
-                    tasks_str = self.special_project.view_tasks_in_project(project_name)
-
-                    # Check if there are tasks in the special project
-                    if not tasks_str.strip():
-                        print(f"No tasks found in special project '{project_name}'.")
-                    else:
-                        print(f"\n===== Tasks in Special Project '{project_name}' =====")
-                        print(tasks_str)
-
-                    return
-                else:
-                    print("Invalid choice. Please enter a valid number.")
-            except ValueError:
-                print("Invalid input. Please enter a number.")
-
-    def delete_task_in_project(self, project_name, title):
-        """
-        Delete a task within a specific project without completely deleting it from the task list
-
-        Returns: None
-
-        Args:
-            project_name (str): name of the project containing the task
-            title (str): title of the task to be deleted
-        """
-        if project_name in self.categories:
-            tasks = self.categories[project_name]
-            for task in tasks:
-                if task.title == title:
-                    tasks.remove(task)
-                    print(f"Task '{title}' removed from project '{project_name}'")
-                    return
-            print(f"Task '{title}' not found in project '{project_name}'")
-        else:
-            print(f"Project '{project_name}' not found")
-
     def view_completion_rate(self):
             """
-            Displays the completion rate of regular tasks and plots the completion rate graph.
+            displays the completion rate of regular tasks and plots the completion rate graph
 
             Returns: None
 
@@ -676,18 +671,17 @@ class TextBasedToDoListApp:
             else:
                 print("\nNo tasks available to calculate completion rate.")
 
-
     def edit_task(self):
         """
         Modifies a task in the task list with new information.
 
-        Raises:
-            TypeError: If an issue arises with the task list or editing
-            ValueError: If the due date input is in an incorrect format or in the past
-
         Returns: None
 
         Args: None
+
+        Raises:
+            TypeError: If an issue arises with the task list or editing
+            ValueError: If the due date input is in an incorrect format or in the past
         """
         while True:
             try:
@@ -783,17 +777,15 @@ class TextBasedToDoListApp:
             except (TypeError, ValueError) as e:
                 print(f"Error: {e}. Please enter valid input.")
 
-
-
     def mark_task_complete(self):
         """
         Marks a task as complete in the task list
 
-        Raises: TypeError: if issue with the task list
-
         Returns: None
 
         Args: None
+
+        Raises: TypeError: if issue with the task list
         """
         while True:
             try:
@@ -802,8 +794,6 @@ class TextBasedToDoListApp:
                 break
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
-
-
 
 if __name__ == "__main__":
     app = TextBasedToDoListApp()
