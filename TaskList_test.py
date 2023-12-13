@@ -18,6 +18,16 @@ class TestTaskList(unittest.TestCase):
         #mark task complete
         self.task_list.mark_task_complete(task_title)
 
+        #check if it is correctly maked complete
+        for tasks in self.task_list.categories.values():
+            for task in tasks:
+                if task.title == task_title:
+                    self.assertTrue(task.completed, f"Task '{task_title}' should be marked as complete")
+                    return
+
+        #if input title is not found, test should fail
+        self.fail(f"Task '{task_title}' not found in the task list")
+
 
 
 if __name__ == '__main__':
