@@ -498,7 +498,34 @@ class TextBasedToDoListApp:
             except TypeError as e:
                 print(f"Error: {e}. Please enter valid input types.")
 
+    def add_special_project(self):
+            """
+            Adds a new special project
 
+            Raises:
+                ValueError: If there is an issue with the input
+                TypeError: If there is a type mismatch in the input
+
+            Returns: None
+
+            Args: None
+            """
+            while True:
+                try:
+                    project_name = input("Enter the name of the special project: ")
+
+                    # Check if the special project title is unique
+                    if project_name not in self.special_project.categories:
+                        self.special_project.categories[project_name] = []
+                        print(f"Special project '{project_name}' added.")
+                        break
+                    else:
+                        print(f"Error: A special project with the name '{project_name}' already exists. "
+                            f"Please choose a unique name.")
+                except TypeError as e:
+                    print(f"Error: {e}. Please enter valid input types.")
+
+                    
 
     def add_task_to_special_project(self):
         """
