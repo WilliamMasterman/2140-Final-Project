@@ -255,7 +255,28 @@ class SpecialProjects(TaskList):
                 print(f"Task '{title}' not found in project '{project_name}'.")
         else:
             print(f"Project '{project_name}' not found.")
-            
+
+    def delete_task_in_project(self, project_name, title):
+        """
+        Delete a task within a specific project without completely deleting it from the task list
+
+        Returns: None
+
+        Args:
+            project_name (str): Name of the project containing the task
+            title (str): Title of the task to delete
+        """
+        if project_name in self.categories:
+            tasks = self.categories[project_name]
+            for task in tasks:
+                if task.title == title:
+                    tasks.remove(task)
+                    print(f"Task '{title}' in project '{project_name}' deleted from the project")
+                    return
+            print(f"Task '{title}' in project '{project_name}' not found")
+        else:
+            print(f"Project '{project_name}' not found")
+
 
 class TextBasedToDoListApp:
     def __init__(self):
