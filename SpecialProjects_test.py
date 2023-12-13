@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-from ToDoList_Final import Task, TaskList, SpecialProjects
+from ToDoList_Final import Task, SpecialProjects
 
 class TestSpecialProjects(unittest.TestCase):
     def setUp(self):
