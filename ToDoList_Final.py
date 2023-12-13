@@ -154,6 +154,13 @@ class SpecialProjects(TaskList):
         Args:
             project_name (str): Name of the special project to delete
         """
+        if project_name in self.categories:
+            del self.categories[project_name]
+            print(f"Special project '{project_name}' deleted.")
+        else:
+            print(f"Special project '{project_name}' not found.")
+
+
 
     def add_task_to_project(self, task, project_name):
         """
@@ -172,34 +179,6 @@ class SpecialProjects(TaskList):
             self.categories[project_name] = []
         self.categories[project_name].append(task)
 
-    def view_completion_rate(self):
-        """
-        Calculates and returns the completion rate of tasks that are not overdue
-
-        Returns: str - a string indicating the completion rate
-
-        Arguments: None
-        """
-        total_tasks = 0
-        completed_tasks = 0
-
-        #iterates through all tasks and adds one to the total task counter
-        for tasks in self.categories.values():
-            for task in tasks:
-                total_tasks += 1
-                #checks to see if the task was completed before the due date,
-                #if yes then it adds one to the completed task counter
-                if datetime.now() <= task.due_date and task.completed:
-                    completed_tasks += 1
-
-        #calculates the completion rate
-        if total_tasks == 0:
-            completion_rate = 0
-        else:
-            completion_rate = (completed_tasks / total_tasks) * 100
-
-        #returns the completion rate to 2 decimal points
-        return f"Completion Rate: {completion_rate:.2f}%"
     
     def view_tasks_in_project(self, project_name):
         """
@@ -253,26 +232,6 @@ class SpecialProjects(TaskList):
         else:
             print(f"Project '{project_name}' not found")
 
-    def mark_task_complete_in_project(self, project_name, title):
-        """
-        Mark a task within a specific project as complete
-
-        Returns: None
-
-        Args:
-            project_name (str): name of the project containing the task
-            title (str): title of the task to be marked as complete
-        """
-        if project_name in self.categories:
-            for task in self.categories[project_name]:
-                if task.title == title:
-                    task.completed = True
-                    print(f"Task '{title}' in project '{project_name}' marked as complete")
-                    return
-
-            print(f"Task '{title}' in project '{project_name}' not found")
-        else:
-            print(f"Project '{project_name}' not found")
 
 class TextBasedToDoListApp:
     def __init__(self):
