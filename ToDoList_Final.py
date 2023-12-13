@@ -145,6 +145,16 @@ class TaskList:
 
 class SpecialProjects(TaskList):
 
+    def delete_special_project(self, project_name):
+        """
+        Delete a special project without deleting its tasks
+
+        Returns: None
+
+        Args:
+            project_name (str): Name of the special project to delete
+        """
+
     def add_task_to_project(self, task, project_name):
         """
         Adds a task to a specific project
