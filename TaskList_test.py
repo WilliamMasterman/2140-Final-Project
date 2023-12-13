@@ -28,6 +28,12 @@ class TestTaskList(unittest.TestCase):
         #if input title is not found, test should fail
         self.fail(f"Task '{task_title}' not found in the task list")
 
+    def test_add_task(self):
+        #make sure task is added correctly
+        task = Task("Test Task", datetime(2023, 1, 1), "Test Description", "Test Category")
+        self.task_list.add_task(task)
+        self.assertIn(task, self.task_list.categories.get("Test Category", []))
+
 
 
 if __name__ == '__main__':
