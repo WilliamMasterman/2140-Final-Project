@@ -53,6 +53,7 @@ class TaskList:
         
         Arguments: title (str): The title of the task
         """
+        #input check
         if not isinstance(title, str):
             raise TypeError("Invalid input type")
         
@@ -63,7 +64,7 @@ class TaskList:
                     print(f"Task '{title}' deleted")
 
                     #if the category doesnt have anything in it, remove the category
-                    #Keeps the category around until its not useful anymore
+                    #keeps the category around until its not useful anymore
                     if not tasks:
                         del self.categories[category]
                         print(f"Category '{category}' removed")
@@ -82,10 +83,11 @@ class TaskList:
 
         Arguments: None
         """
+        #initializes empty string to add info to
         tasks_str = ""
         for category, tasks in self.categories.items():
             tasks_str += f"\n===== Category: {category} =====\n"
-            #Displaying the information given via user input
+            #displaying the information given via user input
             for task in tasks:
                 tasks_str += f"Title: {task.title}\n"
                 tasks_str += f"Due Date: {task.due_date}\n"
@@ -178,18 +180,18 @@ class SpecialProjects(TaskList):
             print(f"Error: Special project '{project_name}' does not exist. Please create the project first.")
             return
 
-        # Find the task in the special project
+        #find the task in the project
         existing_task = next((t for t in self.categories[project_name] if t.title == task.title), None)
 
         if existing_task:
-            # Update the existing task's details
+            #updates the existing tasks details
             existing_task.due_date = task.due_date
             existing_task.description = task.description
             existing_task.category = task.category
             existing_task.completed = task.completed
             print(f"Task '{task.title}' in special project '{project_name}' updated.")
         else:
-            # Add the task to the special project
+            #adds the task to the special project
             self.categories[project_name].append(task)
             print(f"Task '{task.title}' added to special project '{project_name}'.")
 
@@ -206,7 +208,7 @@ class SpecialProjects(TaskList):
         tasks_str = ""
         if project_name in self.categories:
             #iterates through project in categories dict and then concatenates
-            #to tasks str. Very similar to view task method.
+            #to tasks str. Very similar to view task method
             for task in self.categories[project_name]:
                 tasks_str += f"Title: {task.title}\n"
                 tasks_str += f"Due Date: {task.due_date}\n"
@@ -230,15 +232,15 @@ class SpecialProjects(TaskList):
             title (str): title of the task to be marked as complete
         """
         if project_name in self.categories:
-            # Find the task in the special project
+            #finds the task int he project
             task_in_project = next((t for t in self.categories[project_name] if t.title == title), None)
 
             if task_in_project:
-                # Mark the task as complete in the special project
+                #marks the task complete in the project
                 task_in_project.completed = True
                 print(f"Task '{title}' in project '{project_name}' marked as complete in special project.")
 
-                # Find the task in the main task list
+                #then finds the task in the tasklist and updates it
                 task_in_main_list = None
                 for tasks in self.categories.values():
                     for task in tasks:
@@ -247,7 +249,7 @@ class SpecialProjects(TaskList):
                             break
 
                 if task_in_main_list:
-                    # Mark the task as complete in the main task list
+                    #marks the task complete int he main list
                     task_in_main_list.completed = True
                     print(f"Task '{title}' marked as complete in the main task list.")
                 else:
@@ -259,14 +261,15 @@ class SpecialProjects(TaskList):
 
     def delete_task_in_project(self, project_name, title):
         """
-        Delete a task within a specific project without completely deleting it from the task list
+        deletes a task within a specific project without completely deleting it from the task list
 
         Returns: None
 
         Args:
-            project_name (str): Name of the project containing the task
-            title (str): Title of the task to delete
+            project_name (str): name of project containing task
+            title (str): title of task to delete
         """
+        # searches through project and tasklist and deletes it
         if project_name in self.categories:
             tasks = self.categories[project_name]
             for task in tasks:
@@ -274,10 +277,11 @@ class SpecialProjects(TaskList):
                     tasks.remove(task)
                     print(f"Task '{title}' in project '{project_name}' deleted from the project")
                     return
+            #if task not found throw error
             print(f"Task '{title}' in project '{project_name}' not found")
         else:
+            #if project not found throw error
             print(f"Project '{project_name}' not found")
-
 
 class TextBasedToDoListApp:
     def __init__(self):
@@ -390,6 +394,7 @@ class TextBasedToDoListApp:
             else:
                 print("Invalid choice. Please enter a valid option.")
 
+
     def delete_special_project(self):
         """
         Delete a special project without deleting its tasks
@@ -413,6 +418,7 @@ class TextBasedToDoListApp:
         project_name = input("Enter the name of the project: ")
         title = input("Enter the title of the task to delete: ")
         self.special_project.delete_task_in_project(project_name, title)
+
 
 
     def view_all_tasks(self):
@@ -525,8 +531,6 @@ class TextBasedToDoListApp:
                 except TypeError as e:
                     print(f"Error: {e}. Please enter valid input types.")
 
-
-
     def add_task_to_special_project(self):
         """
         Add a task to a special project
@@ -574,7 +578,7 @@ class TextBasedToDoListApp:
     def view_tasks_in_special_project(self):
         """
         Display tasks within a selected special project
-        
+
         Raises: ValueError: If there is an issue with the input
 
         Returns: None
@@ -583,7 +587,7 @@ class TextBasedToDoListApp:
         """
         while True:
             projects = list(self.special_project.categories.keys())
-            
+
             if not projects:
                 print("No special projects found.")
                 return
@@ -599,8 +603,14 @@ class TextBasedToDoListApp:
                 elif 1 <= choice <= len(projects):
                     project_name = projects[choice - 1]
                     tasks_str = self.special_project.view_tasks_in_project(project_name)
-                    print(f"\n===== Tasks in Special Project '{project_name}' =====")
-                    print(tasks_str)
+
+                    # Check if there are tasks in the special project
+                    if not tasks_str.strip():
+                        print(f"No tasks found in special project '{project_name}'.")
+                    else:
+                        print(f"\n===== Tasks in Special Project '{project_name}' =====")
+                        print(tasks_str)
+
                     return
                 else:
                     print("Invalid choice. Please enter a valid number.")
@@ -684,7 +694,7 @@ class TextBasedToDoListApp:
                 title = input("Enter the title of the task to edit: ")
                 task_to_edit = None
 
-                #chhecks if a task with the provided title already exists
+                # check if a task with the provided title already exists
                 for category, tasks in self.task_list.categories.items():
                     for task in tasks:
                         if task.title == title:
@@ -692,13 +702,13 @@ class TextBasedToDoListApp:
                             break
 
                 if task_to_edit is not None:
-                    #prompts if the user wants to edit the title or not
+                    # prompts if the user wants to edit the title or not
                     if input("Do you want to change the title? (y/n): ").lower() == 'y':
-                        #if yes, check to see if new title already exists
+                        # if yes, check to see if the new title already exists
                         while True:
                             new_title = input("Enter the new title: ")
 
-                            #checks if a task with the new title already exists
+                            # checks if a task with the new title already exists
                             for tasks in self.task_list.categories.values():
                                 for task in tasks:
                                     if task.title == new_title and task.title != title:
@@ -706,23 +716,32 @@ class TextBasedToDoListApp:
                                             f"Please choose a unique title.")
                                         break
                                 else:
-                                    continue  #will only execute if the inner loop doesnt break
-                                break  #will only execute if duplicate title found
+                                    continue  # will only execute if the inner loop doesn't break
+                                break  # will only execute if duplicate title found
                             else:
-                                break  #will only execute if unique title provided
+                                break  # will only execute if a unique title is provided
 
                         task_to_edit.title = new_title
 
-                    #continue with editing process
+                    # continue with the editing process
                     print("Select aspects to edit:")
                     print("1. Due Date")
                     print("2. Description")
                     print("3. Category")
                     print("4. All")
-                    edit_choices = input("Enter comma-separated numbers for desired: ")
-                    tasks_to_edit = [int(x) for x in edit_choices.split(",")]
+                    while True:
+                        try:
+                            edit_choices = input("Enter comma-separated numbers for the desired options: ")
+                            tasks_to_edit = [int(x) for x in edit_choices.split(",")]
 
-                    previous_category = task_to_edit.category  #store the previous category
+                            if all(1 <= choice <= 4 for choice in tasks_to_edit):
+                                break
+                            else:
+                                print("Invalid choice. Please enter numbers between 1 and 4.")
+                        except ValueError:
+                            print("Invalid input. Please enter comma-separated numbers.")
+
+                    previous_category = task_to_edit.category  # store the previous category
 
                     if 1 in tasks_to_edit or 4 in tasks_to_edit:
                         while True:
@@ -730,7 +749,7 @@ class TextBasedToDoListApp:
                             new_due_date_str = new_due_date_str.replace("'", "").replace("(", "").replace(")", "")
                             try:
                                 new_due_date = datetime.strptime(new_due_date_str, "%d/%m/%y")
-                                # check to see if due date is valid
+                                # check to see if the due date is valid
                                 if new_due_date >= datetime.now():
                                     task_to_edit.due_date = new_due_date
                                     break
@@ -745,20 +764,20 @@ class TextBasedToDoListApp:
                     if 3 in tasks_to_edit or 4 in tasks_to_edit:
                         new_category = input("Enter the new category: ")
 
-                        #update the category
+                        # update the category
                         tasks.remove(task_to_edit)
                         self.task_list.add_task(
                             Task(task_to_edit.title, task_to_edit.due_date, task_to_edit.description, new_category,
                                 task_to_edit.completed))
 
-                        #check to see if category is empty, if so, delete
+                        # check to see if the category is empty; if so, delete
                         if not tasks and previous_category in self.task_list.categories:
                             del self.task_list.categories[previous_category]
 
                     print(f"Task '{title}' edited")
                     return
 
-                #if title is not found then throw error and show screen again
+                # if the title is not found, then throw an error and show the screen again
                 print(f"Task '{title}' not found")
                 break
             except (TypeError, ValueError) as e:
