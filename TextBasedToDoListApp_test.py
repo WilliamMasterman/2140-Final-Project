@@ -45,6 +45,14 @@ class TestTextBasedToDoListApp(unittest.TestCase):
             #ensures that method is called
             mock_delete_task_in_project.assert_called_once()
 
+    @patch('ToDoList_Final.TaskList.mark_task_complete')
+    @patch('builtins.input', return_value='Task Title 1')
+    def test_mark_task_complete(self, mock_input, mock_mark_task_complete):
+        # Call the method to be tested
+        self.app.mark_task_complete()
+
+        # Ensure that the method is called with the correct arguments
+        mock_mark_task_complete.assert_called_once_with('Task Title 1')
 
 if __name__ == '__main__':
     unittest.main()
