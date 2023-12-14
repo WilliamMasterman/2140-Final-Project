@@ -62,5 +62,13 @@ class TestTextBasedToDoListApp(unittest.TestCase):
         #ensire method called with correct args
         mock_delete_task.assert_called_once_with('Task Title 1')
 
+    @patch('ToDoList_Final.TextBasedToDoListApp.view_all_tasks')
+    #tests view all tasks
+    def test_view_all_tasks(self, mock_view_all_tasks):
+        with patch('builtins.print') as mock_print:
+            self.app.view_all_tasks()
+
+            mock_view_all_tasks.assert_called_once()
+
 if __name__ == '__main__':
     unittest.main()
