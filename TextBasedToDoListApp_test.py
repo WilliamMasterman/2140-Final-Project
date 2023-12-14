@@ -48,11 +48,19 @@ class TestTextBasedToDoListApp(unittest.TestCase):
     @patch('ToDoList_Final.TaskList.mark_task_complete')
     @patch('builtins.input', return_value='Task Title 1')
     def test_mark_task_complete(self, mock_input, mock_mark_task_complete):
-        # Call the method to be tested
+        #call method to be tested
         self.app.mark_task_complete()
 
-        # Ensure that the method is called with the correct arguments
+        #ensire method called with correct args
         mock_mark_task_complete.assert_called_once_with('Task Title 1')
+
+    @patch('ToDoList_Final.TaskList.delete_task')
+    @patch('builtins.input', return_value='Task Title 1')
+    def test_delete_task(self, mock_input, mock_delete_task):
+        self.app.delete_task()
+
+        #ensire method called with correct args
+        mock_delete_task.assert_called_once_with('Task Title 1')
 
 if __name__ == '__main__':
     unittest.main()
